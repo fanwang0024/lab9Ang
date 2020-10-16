@@ -44,4 +44,11 @@ export class DatabaseService {
    
     return this.http.put("/movies", obj, httpOptions);
   }
+
+  addActorById(obj){
+    let movieId = obj.id1;
+    let url = "/movies/" + movieId;
+    let actorId = {"_id":obj.id2};
+    return this.http.post(url, actorId, httpOptions);
+  }
 }

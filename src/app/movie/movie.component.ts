@@ -14,8 +14,22 @@ export class MovieComponent implements OnInit {
   year: number = 0;
   movieId: string = "";
   aYear: number = 0;
+  actorsDB: any[] = [];
+
+  objA = {"id2":""};
+  objM = {"id1":""};
+  obj = {"id1":this.objM.id1, "id2":this.objA.id2}
+  
+ 
 
   constructor(private dbService: DatabaseService) { }
+
+  onGetActors(){
+    this.dbService.getActors().subscribe((data: any[])=>{
+      this.actorsDB = data;
+      console.log(this.actorsDB);
+    })
+  }
 
   onGetMovies() {
     this.dbService.getMovies().subscribe((data: any[]) => {
@@ -41,6 +55,16 @@ export class MovieComponent implements OnInit {
     });
   }
 
+  onAddActorById(item){
+    this.dbService.addActorById(this.obj).subscribe(result =>{
+      this.onGetMovies();
+    });
+  }
+
+  getActorId(item){
+    let id = item._id;
+    return id;
+  }
   ngOnInit(): void {
     this.onGetMovies();
   }
@@ -55,10 +79,13 @@ export class MovieComponent implements OnInit {
     this.movieId = "";
   }
 
-  onSelectUpdate(item) {
-    this.title = item.title;
-    this.year = item.year;
-    this.movieId = item._id;
+  onSelectActor(item) {
+    this.objA = {"id2": item._id};
   }
+
+  onSelectMovie(item) {
+    this.objM = {"id1": item._id};
+  }
+
 
 }
