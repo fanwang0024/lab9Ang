@@ -24,7 +24,7 @@
   </nav>
 
 
-  <!-- First Section: Add new actor -->
+  <!-- First Section: Add new movie -->
   <div class="section" *ngIf="section==1">
     <div class="form-group">
       <label for="movieName">Title</label>
@@ -37,7 +37,7 @@
     <button type="submit" class="btn btn-primary" (click)="onSaveMovie()">Save Movie</button>
   </div>
 
-  <!-- Section 2: Delete Actor -->
+  <!-- Section 2: Delete movie -->
   <div class="section" *ngIf="section==2">
     <table class="table table-striped">
       <tr>
@@ -59,7 +59,6 @@
       <tr>
         <th>Title</th>
         <th>Year</th>
-        <th>Delete?</th>
       </tr>
       <tr *ngFor="let item of moviesDB">
         <td>{{item.title}}</td>
@@ -67,13 +66,42 @@
       </tr>
       <div class="form-group">
         <label for="movieName">Year</label>
-        <input type="number" class="form-control" id="movieName" [(ngModel)]="year">
+        <input type="number" class="form-control" id="movieName" [(ngModel)]="aYear">
       </div>
-      <button type="submit" class="btn btn-primary" (click)="onSaveMovie()">Delete Movies</button>
+      <button type="submit" class="btn btn-primary" (click)="onDeleteMoviesByYear(aYear)">Delete Movies</button>
     </table>
   </div>
 
-   <!-- section 5: Display all in a tble -->
+
+   <!-- section 4: Add an actor to a movie -->
+   <div class="section" *ngIf="section==4">
+    <table class="table table-striped">
+      <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Select!</th>
+      </tr>
+      <tr *ngFor="let item of moviesDB">
+        <td>{{item.title}}</td>
+        <td>{{item.year}}</td>
+        <td><button type="submit" class="btn btn-primary" (click)="onSelectUpdate(item)">Update</button></td>
+      </tr>
+    </table>
+    <hr>
+    <div *ngIf="moviesDB.length>0">
+      <div class="form-group">
+        <label for="movieName">Title</label>
+        <input type="text" class="form-control" id="movieName" [(ngModel)]="title">
+      </div>
+      <div class="form-group">
+        <label for="movieName">Year</label>
+        <input type="number" class="form-control" id="movieName" [(ngModel)]="year">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="onUpdateActor()">Update Movie</button>
+    </div>
+  </div>
+
+   <!-- section 5: Display all in a table -->
    <div class="section" *ngIf="section==5">
     <table class="table table-striped">
       <tr>

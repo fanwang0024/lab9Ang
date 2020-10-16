@@ -51,4 +51,4 @@ app.post('/movies/:id',movies.addOneActor);
 //6.Retrieve all the movies produced between year1 and year2.
 app.get('/movies/:year1/:year2',movies.getSomeMovies);
  //9.Delete all the movies that are produced before year2.
-app.delete('/movies/:aYear',movies.deleteSome);
+app.put('/movies',movies.deleteSome);

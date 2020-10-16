@@ -40,8 +40,8 @@ export class DatabaseService {
     return this.http.delete(url, httpOptions);
   }
 
-  deleteMoviesByYear(aYear){
-    let url = "/movies" + aYear.toString;
-    return this.http.delete(url,httpOptions);
+  deleteMoviesByYear(obj){
+   
+    return this.http.put("/movies", obj, httpOptions);
   }
 }

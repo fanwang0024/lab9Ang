@@ -35,7 +35,8 @@ export class MovieComponent implements OnInit {
   }
 
   onDeleteMoviesByYear(aYear){
-    this.dbService.deleteMoviesByYear(aYear).subscribe(result =>{
+    let obj={year1:this.aYear, year2:0}
+    this.dbService.deleteMoviesByYear(obj).subscribe(result =>{
       this.onGetMovies();
     });
   }
@@ -52,6 +53,12 @@ export class MovieComponent implements OnInit {
     this.title = "";
     this.year = 0;
     this.movieId = "";
+  }
+
+  onSelectUpdate(item) {
+    this.title = item.title;
+    this.year = item.year;
+    this.movieId = item._id;
   }
 
 }

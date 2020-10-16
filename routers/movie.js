@@ -59,20 +59,26 @@ module.exports = {
         });
     },
 
-    //9.Delete all the movies that are produced before aYear.
+    //9.Delete all the movies that are produced between year1 and year2.
     deleteSome: function(req,res){
-        Movie.where('year').lte(req.params.aYear).exec(function(err,movies){
-            if(err) return res.status(400).json(err);
-
-            for(let i = 0; i < movies.length; i++){
-                Movie.findOneAndRemove({_id:movies[i]._id},function(err){
-                    if(err) return res.status(400).json(err);
-        
-                    res.json();
+       
+            let year1=req.body.year1;
+            let year2=req.body.year2;
+            // console.log(year1,year2);
+            Movie.where('year').gte(year2).lte(year1).exec(function(err,movies){
+              if(err) return res.status(400).json(err);
+              if(!movies) return res.status(404).json();
+              
+              for(let i=0;i<movies.length;i++){
+                Movie.findOneAndRemove({ _id: movies[i]._id }, function (err) {
+                  if(err) return res.status(400).json(err);
                 });
-            }
-           
-        });
+                
+              }
+              res.json();
+              
+            });
+          
     },
 
     //4.Remove an actor from the list of the actors in a movie
